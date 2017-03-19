@@ -14,12 +14,31 @@ def open_asset(file_name)
 end
 
 # Only run on development (local) instances not on production, etc.
-unless Rails.env.development?
-  puts "Development seeds only (for now)!"
-  exit 0
-end
+# raise "Development seeds only (for now)!" unless Rails.env.development?
 
 # Let's do this ...
+
+## USERS
+
+puts "Re-creating Users ..."
+
+User.destroy_all
+
+User.create(
+  first_name: 'John',
+  last_name: 'Chow',
+  email: 'jchow417@gmail.com',
+  password: '123',
+  password_confirmation: '123'
+)
+
+User.create(
+  first_name: 'McLovin\'',
+  last_name: 'McLovin\'',
+  email: 'mclovin@gmail.com',
+  password: '123',
+  password_confirmation: '123'
+)
 
 ## CATEGORIES
 
@@ -108,7 +127,7 @@ cat2.products.create!({
   price: 2_026.29
 })
 
-cat3.products.create!({
+prod1 = cat3.products.create!({
   name:  'Optimal Sleeping Bed',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('furniture1.jpg'),
@@ -116,21 +135,57 @@ cat3.products.create!({
   price: 3_052.00
 })
 
-cat3.products.create!({
+prod2 = cat3.products.create!({
   name:  'Electric Chair',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('furniture2.jpg'),
-  quantity: 0,
+  quantity: 2,
   price: 987.65
 })
 
-cat3.products.create!({
+prod3 = cat3.products.create!({
   name:  'Red Bookshelf',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('furniture3.jpg'),
-  quantity: 23,
+  # quantity: 23,
+  quantity: 0,
   price: 2_483.75
 })
 
+## REVIEWS
+
+puts "Re-creating Reviews ..."
+
+Review.destroy_all
+
+prod1.reviews.create!({
+  user_id:  1,
+  description: Faker::Hipster.paragraph(4),
+  rating: 5,
+})
+
+prod1.reviews.create!({
+  user_id:  2,
+  description: Faker::Hipster.paragraph(4),
+  rating: 3,
+})
+
+prod1.reviews.create!({
+  user_id:  2,
+  description: Faker::Hipster.paragraph(4),
+  rating: 4,
+})
+
+prod2.reviews.create!({
+  user_id:  1,
+  description: Faker::Hipster.paragraph(4),
+  rating: 2,
+})
+
+prod3.reviews.create!({
+  user_id:  2,
+  description: Faker::Hipster.paragraph(4),
+  rating: 1,
+})
 
 puts "DONE!"

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Order No. <% :order_id %> Receipt</h1>
+    <p>
+      You've successfully made your life more interesting!
+    </p>
+    <br>
+    <p>
+      Here's a list of the weird stuff you bought:
+    </p>
+    <% order_total = 0 %>
+    <% line_items = LineItem.where(order_id: :order_id) %>
+    <% line_items.each do |item| %>
+      <%= render 'item', product_id: item.product_id, quantity: item.quantity %>
+    <% end %>
+    <p>TOTAL: $<%= order_total %></p>
+    <br>
+    <p>Thanks for sharing our love of weirdness!</p>
+</html>
