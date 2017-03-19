@@ -7,5 +7,4 @@ class Review < ActiveRecord::Base
    validates :description, presence: true
    validates :rating, presence: true
 
-
 end
