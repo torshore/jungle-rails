@@ -28,18 +28,22 @@
 
     <div class="row">
 
-      <div class="col-sm-8">
-        <dl class="dl-horizontal">
-          <dt>Review</dt>
-          <% @review.each do |review| %>
-            <dd><%= review.description %></dd>
-          <% end %>
-          <dt>Rating</dt>
-          <% @review.each do |review| %>
-            <dd><%= review.rating %></dd>
-          <% end %>
-        </dl>
+      <div class="panel panel-default products">
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Review</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+           <%= render @review %>
+          </tbody>
+        </table>
+
       </div>
+
     </div>
 
   </article>
