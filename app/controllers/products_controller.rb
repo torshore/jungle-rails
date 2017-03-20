@@ -6,7 +6,8 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @review = Review.where(product_id: params[:id]).order(created_at: :desc)
+    # @reviews = Review.where(product_id: params[:id]).order(created_at: :desc)
+    @review = Review.new
   end
 
 end
