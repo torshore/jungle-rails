@@ -1,16 +1,22 @@
 class ReviewsController < ApplicationController
-   before_filter :require_login
+   before_filter :authorize
 
   def create
     @product = Product.find(params[:product_id])
     @review = @product.reviews.new(review_params)
-    @review.user_id = current_user
+    @review.user = current_user
 
     if @review.save
       redirect_to @product, notice: "Review saved!"
     else
       render "products/show"
     end
+  end
+
+  def destroy
+    @reviewd = Review.find params[:id]
+    @reviewd.destroy
+    redirect_to "/products/#{params[:product_id]}", notice: 'Review deleted'
   end
 
   private
